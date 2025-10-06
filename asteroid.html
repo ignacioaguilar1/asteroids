@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteroids</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0b0c2a;
+      color: #ffffff;
+    }
+    header {
+      background-color: #11193d;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 3px solid #00bfff;
+    }
+    header h1 { margin: 0; font-size: 2.5rem; color: #00bfff; }
+    header p { margin-top: 0.5rem; font-size: 1.2rem; color: #cccccc; }
+    nav {
+      background-color: #0f0f1f;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #00bfff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    nav a:hover { text-decoration: underline; }
+    section {
+      padding: 2rem 1rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    section h2 { color: #00bfff; font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .module {
+      background-color: #1c1c3c;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+    }
+    .module p { line-height: 1.6; }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #00bfff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .btn:hover { background-color: #009fd4; }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #0f0f1f;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+    .accordion {
+      background-color: #11193d;
+      color: #00bfff;
+      cursor: pointer;
+      padding: 10px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      transition: 0.3s;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+    .panel {
+      padding: 0 10px;
+      display: none;
+      background-color: #1c1c3c;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌍 MESA45</h1>
+    <p>Asteroid simulator. Learn with us.</p>
+  </header>
+
+  <nav>
+    <a href="#simulator">3D Simulator</a>
+    <a href="#calculator">Impact Calculator</a>
+    <a href="#educational">Educational Mode</a>
+    <a href="#game">Game Mode</a>
+  </nav>
+
+  <!-- 3D Simulator -->
+  <section id="simulator">
+    <h2>🚀 Orbital Trajectory Simulator (3D)</h2>
+    <div class="module">
+      <p>Visualize different types of orbital trajectories based on eccentricity.</p>
+      
+      <label for="orbitType">Orbit type:</label>
+      <select id="orbitType" class="btn">
+        <option value="circular">Circular</option>
+        <option value="elliptical">Elliptical</option>
+        <option value="parabolic">Parabolic</option>
+        <option value="hyperbolic">Hyperbolic</option>
+      </select>
+
+      <div id="orbitInfo" style="margin-top:1rem;"></div>
+    </div>
+  </section>
+
+  <!-- Impact Calculator -->
+  <section id="calculator">
+    <h2>💥 Impact Calculator</h2>
+    <div class="module" style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+      <form id="impactForm" style="flex: 1; min-width: 250px; display: grid; gap: 10px;">
+        <label for="masa">Mass (kg):</label>
+        <input type="number" id="masa" placeholder="E.g., 5000000" required>
+        <small>→ Amount of asteroid material.</small>
+
+        <label for="velocidad">Velocity (m/s):</label>
+        <input type="number" id="velocidad" placeholder="E.g., 12000" required>
+        <small>→ Speed at impact.</small>
+
+        <label for="angulo">Angle (°):</label>
+        <input type="number" id="angulo" placeholder="E.g., 45" required>
+        <small>→ Inclination relative to the ground.</small>
+
+        <button type="submit" class="btn">Calculate Impact</button>
+      </form>
+
+      <img src="ho.gif" alt="impact" style="width:200px; border-radius:10px;">
+    </div>
+
+    <div id="result" style="margin-top:1rem;"></div>
+  </section>
+
+  <!-- Educational Section -->
+  <section id="educational">
+    <h2>📚 Asteroids and Resources</h2>
+
+    <!-- Accordion content -->
+    <div class="module" style="margin-top:2rem;">
+      <button class="accordion">🪐 1. What Are Asteroids and NEOs</button>
+      <div class="panel">
+        <p><strong>Asteroids</strong> are rocky or metallic bodies orbiting the Sun. Most are in the <strong>Main Belt</strong>. Some approach Earth and are called <strong>NEOs (Near-Earth Objects)</strong>.</p>
+        <p>📘 <a href="https://cneos.jpl.nasa.gov/" target="_blank">NASA CNEOS</a></p>
+      </div>
+
+      <button class="accordion">🔭 2. Detection and Tracking</button>
+      <div class="panel">
+        <p>NASA monitors NEOs via PDCO, ground and space telescopes like NEOWISE. Orbital tracking uses Kepler's and Newton's laws.</p>
+        <p>📘 <a href="https://www.nasa.gov/planetarydefense" target="_blank">PDCO</a></p>
+      </div>
+
+      <button class="accordion">💥 3. What Happens During an Impact</button>
+      <div class="panel">
+        <p>Kinetic energy is calculated with <code>E = 1/2 m v²</code>. Example: 100 m diameter, density 3000 kg/m³, speed 20 km/s → ~1000 megatons TNT.</p>
+      </div>
+
+      <button class="accordion">🌋 4. Energy Scales and Crater Size</button>
+      <div class="panel">
+        <p>Example table of craters by size and energy (Imperial College):</p>
+        <table style="color:#e0e0e0; width:100%; border-collapse: collapse;">
+          <tr style="background-color:#333;"><th>Diameter</th><th>Velocity (km/s)</th><th>Energy</th><th>Crater</th></tr>
+          <tr><td>20 m</td><td>19</td><td>0.5 Mt</td><td>~300 m</td></tr>
+          <tr><td>100 m</td><td>20</td><td>1000 Mt</td><td>~2 km</td></tr>
+          <tr><td>1 km</td><td>20</td><td>1 million Mt</td><td>~15 km</td></tr>
+          <tr><td>10 km</td><td>20</td><td>1 million Gt</td><td>>150 km (Chicxulub)</td></tr>
+        </table>
+      </div>
+
+      <button class="accordion">🌎 5. Environmental and Geological Effects</button>
+      <div class="panel">
+        <ul>
+          <li>Atmospheric shock waves</li>
+          <li>Wildfires</li>
+          <li>Seismic waves</li>
+          <li>Tsunamis</li>
+          <li>Climate darkening</li>
+        </ul>
+        <p>📘 <a href="https://www.usgs.gov/" target="_blank">USGS</a></p>
+      </div>
+
+      <button class="accordion">🧠 6. Mitigation Strategies</button>
+      <div class="panel">
+        <ul>
+          <li>Kinetic impactor (DART)</li>
+          <li>Gravity tractor</li>
+          <li>Nuclear explosion (last resort)</li>
+        </ul>
+      </div>
+
+      <button class="accordion">🧬 7. Historical Cases</button>
+      <div class="panel">
+        <ul>
+          <li>Chelyabinsk (2013) — 20 m, ~500 kt TNT</li>
+          <li>Tunguska (1908) — 50–80 m, 10–15 Mt TNT</li>
+          <li>Chicxulub (~66 million years ago) — ~10 km, ~100 million Mt TNT</li>
+        </ul>
+      </div>
+
+      <button class="accordion">🕹️ 8. Education, Gamification and Visualization</button>
+      <div class="panel">
+        <p>3D simulations and gamification help understand impact physics.</p>
+      </div>
+
+      <button class="accordion">🔗 9. References</button>
+      <div class="panel">
+        <ol>
+          <li><a href="https://cneos.jpl.nasa.gov/" target="_blank">NASA CNEOS</a></li>
+          <li><a href="https://www.nasa.gov/planetarydefense" target="_blank">NASA PDCO</a></li>
+          <li><a href="https://api.nasa.gov/" target="_blank">NASA NEO API</a></li>
+          <li><a href="https://www.usgs.gov/" target="_blank">USGS</a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <footer>
+    &copy; Mesa45 — NASA & USGS Data.
+  </footer>
+
+  <!-- Accordion Script -->
+  <script>
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+      });
+    }
+  </script>
+
+  <!-- Three.js & Simulator Script -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+  <script>
+    const section = document.querySelector('#simulator .module');
+    const container = document.createElement('div');
+    container.style.height = '400px';
+    section.appendChild(container);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / 400, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, 400);
+    container.appendChild(renderer.domElement);
+
+    const light = new THREE.PointLight(0xffffff, 2);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+    const ambientLight = new THREE.AmbientLight(0x404040, 2);
+    scene.add(ambientLight);
+
+    const textureLoader = new THREE.TextureLoader();
+    const earthTexture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+    const earth = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 32, 32),
+      new THREE.MeshPhongMaterial({ map: earthTexture })
+    );
+    scene.add(earth);
+
+    const asteroid = new THREE.Mesh(
+      new THREE.SphereGeometry(0.1, 16, 16),
+      new THREE.MeshPhongMaterial({ color: 0xaaaaaa })
+    );
+    scene.add(asteroid);
+
+    camera.position.z = 5;
+
+    let orbitType = 'circular';
+    const orbitInfo = document.getElementById('orbitInfo');
+
+    document.getElementById('orbitType').addEventListener('change', e => {
+      orbitType = e.target.value;
+      updateDescription();
+    });
+
+    function updateDescription() {
+      switch(orbitType) {
+        case 'circular':
+          orbitInfo.innerHTML = '<b>Circular Orbit:</b> Eccentricity = 0. Constant speed and fixed radius.';
+          break;
+        case 'elliptical':
+          orbitInfo.innerHTML = '<b>Elliptical Orbit:</b> Eccentricity between 0 and 1. Variable speed; the object approaches and moves away from the focus.';
+          break;
+        case 'parabolic':
+          orbitInfo.innerHTML = '<b>Parabolic Orbit:</b> Eccentricity = 1. Limit trajectory between being bound or escaping.';
+          break;
+        case 'hyperbolic':
+          orbitInfo.innerHTML = '<b>Hyperbolic Orbit:</b> Eccentricity > 1. Escape trajectory.';
+          break;
+      }
+    }
+    updateDescription();
+
+    let angle = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      angle += 0.02;
+
+      if (orbitType === 'circular') {
+        asteroid.position.x = Math.cos(angle) * 3;
+        asteroid.position.y = Math.sin(angle) * 3;
+      } else if (orbitType === 'elliptical') {
+        asteroid.position.x = Math.cos(angle) * 4;
+        asteroid.position.y = Math.sin(angle) * 2;
+      } else if (orbitType === 'parabolic') {
+        asteroid.position.x = angle - 3;
+        asteroid.position.y = 0.2 * (angle - 3) ** 2 - 2;
+      } else if (orbitType === 'hyperbolic') {
+        asteroid.position.x = Math.sinh(angle / 5) * 2;
+        asteroid.position.y = Math.cosh(angle / 5) - 3;
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+
+  <!-- Impact Calculator Script -->
+  <script>
+    document.getElementById('impactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const m = parseFloat(document.getElementById('masa').value);
+      const v = parseFloat(document.getElementById('velocidad').value);
+      const ang = parseFloat(document.getElementById('angulo').value) * Math.PI / 180;
+
+      if (isNaN(m) || isNaN(v) || isNaN(ang)) {
+        alert('Please enter valid values.');
+        return;
+      }
+
+      const energy = 0.5 * m * v * v; // Joules
+      const crater = Math.pow(energy, 0.25) / 50;
+
+      document.getElementById('result').innerHTML = `
+        <p>💥 Energy released: <b>${(energy / 4.184e15).toFixed(2)} megatons</b></p>
+        <p>🌋 Estimated crater size: <b>${crater.toFixed(2)} km</b></p>
+      `;
+    });
+  </script>
+
+  <!-- Real Impact Simulator Section -->
+  <section id="simulator">
+    <h2>🚀 Real Impact Simulator</h2>
+    <div class="module">
+      <p>Use this official simulator to see real impact effects on Earth.</p>
+      <a href="https://impact.ese.ic.ac.uk/ImpactEarth/ImpactEffects/" 
+         target="_blank" class="btn">
+         🌍 Open Scientific Simulator (NASA / Imperial College)
+      </a>
+    </div>
+  </section>
+
+</body>
+</html>
